@@ -10,6 +10,6 @@ const upload = multer(uploadConfig)
 
 routes.post('/sessions', SessionController.store)
 
-routes.post('/spots', SpotController.store)
+routes.post('/spots', upload.single('thumbnail'), SpotController.store)
 
 module.exports = routes
