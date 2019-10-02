@@ -5,14 +5,19 @@ module.exports = {
     // eslint-disable-next-line camelcase
     const { user_id } = req.headers
     // eslint-disable-next-line camelcase
-    const { spot_id } = req.param
+    const { spots_id } = req.params
     const { date } = req.body
 
     const booking = await Booking.create({
       user: user_id,
-      spot: spot_id,
+      spot: spots_id,
       date
     })
+
+    await booking
+      .populate('spot')
+      .populate('user')
+      .execPopulate()
 
     return res.json(booking)
   }
